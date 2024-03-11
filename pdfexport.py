@@ -43,14 +43,18 @@ for page in range(num_pages):
     # create a 2x2 grid of images and captions  
     data = []  
     for i in range(num_images_on_page):  
-        path = '\\\\' + str(processed_paths[i + start]) 
-          # remove null characters   
+        name = processed_paths[i+start]
+        
+        if name[0] == 'U':
+            additionalText = 'C:\\\\'
+        else:
+            additionalText = '\\\\' 
+        path =  additionalText+ str(processed_paths[i + start]) 
 
-        print(path)
-  
         part = re.sub(r'(?<=.)\x00(?=.)', '', processed_parts[i + start])  # remove null character  
         part = part.strip('\x00')  
-  
+
+        print(path)
         img = Image(path, width=150, height=150)  
         caption = Paragraph(part, styleN)  
         data.append([img])  
